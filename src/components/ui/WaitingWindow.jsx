@@ -5,10 +5,10 @@ export default function WaitingWindow({ playingTeam, seconds = 5, onDone }) {
   const showGo = left === 0;
 
   useEffect(() => {
-    const t = setInterval(() => {
+    const interval = setInterval(() => {
       setLeft((s) => (s > 0 ? s - 1 : 0));
     }, 1000);
-    return () => clearInterval(t);
+    return () => clearInterval(interval);
   }, []);
 
   useEffect(() => {
@@ -19,13 +19,30 @@ export default function WaitingWindow({ playingTeam, seconds = 5, onDone }) {
   }, [left, onDone]);
 
   return (
-    <div className="flex flex-col items-center text-center py-16">
-      <h3 className="text-rose-500 text-2xl pb-3">Žaidžia komanda:</h3>
-      <p className="text-rose-200 text-xl mb-6">{playingTeam}</p>
+    <div className="flex flex-col items-center justify-center text-center min-h-[70vh] px-4">
+      <h3 className="text-rose-400 text-xl sm:text-2xl font-semibold mb-2">
+        Žaidžia komanda:
+      </h3>
+      <p className="text-rose-200 text-2xl sm:text-3xl font-bold mb-8 break-words max-w-[80%]">
+        {playingTeam}
+      </p>
 
-      <div className="text-5xl font-extrabold text-white tracking-wider">
+      <div
+        className={`text-6xl sm:text-8xl font-extrabold tracking-wider transition-all duration-300 ${
+          showGo ? "text-emerald-400 scale-125" : "text-white"
+        }`}
+      >
         {showGo ? "Pirmyn!" : left}
       </div>
+
+      {!showGo && (
+        <div className="mt-8 w-64 sm:w-80 h-3 bg-gray-700 rounded-full overflow-hidden">
+          <div
+            className="h-full bg-rose-500 transition-all duration-1000 ease-linear"
+            style={{ width: `${(left / seconds) * 100}%` }}
+          />
+        </div>
+      )}
     </div>
   );
 }
