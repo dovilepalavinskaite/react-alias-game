@@ -30,6 +30,12 @@ export default function Teams({ teams, onTeamsChange, onStart }) {
 
   return (
     <div className="flex flex-col items-center text-center gap-4">
+        <div className="flex flex-col items-center text-center py-12">
+            <h1 className="text-4xl font-bold text-rose-500 mb-2">Žodžių mūšis</h1>
+            <p className="text-lg text-gray-200">
+                Atspėk kuo daugiau žodžių ir laimėk!
+            </p>
+        </div>
       <h3 className="text-xl font-semibold text-rose-400">Komandos:</h3>
 
       <div className="flex flex-col gap-3 w-full max-w-md">
@@ -37,7 +43,7 @@ export default function Teams({ teams, onTeamsChange, onStart }) {
           <TeamForm
             key={team.id}
             team={team}
-            labelIndex={idx + 1}             // shows 1,2,3… even if ids are sparse
+            labelIndex={idx + 1}
             onChangeName={handleNameChange}
             onRemove={() => handleRemoveTeam(team.id)}
             disableRemove={!canRemove}
@@ -48,14 +54,14 @@ export default function Teams({ teams, onTeamsChange, onStart }) {
       <button
         onClick={handleAddTeam}
         disabled={!canAddMore}
-        className={`mt-2 px-4 py-2 font-medium transition
+        className={`mt-2 px-4 py-2 font-medium transition cursor-pointer
           ${canAddMore ? "text-rose-500" : "text-gray-600 cursor-not-allowed"}`}
       >
         + Pridėti komandą
       </button>
 
       <button
-        className="px-4 py-2 rounded-lg transition bg-rose-500 hover:bg-rose-600 text-white"
+        className="px-4 py-2 rounded-lg transition cursor-pointer bg-rose-500 hover:bg-rose-600 text-white"
         onClick={handleGameStart}
       >
         Pradėti žaidimą!
